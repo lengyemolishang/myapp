@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react'
 import {
+    Row,
+    Col,
     Icon,
     Button,
     Modal,
@@ -48,16 +50,14 @@ class MobileNewsHeader extends Component {
                 if (isRegist) {
                     message.success('注册成功')
                 } else {
-                    if (!result) { //登陆失败
+                    if (!result) {
                         message.error('登陆失败')
                     } else {
                         message.success('登陆成功')
                         console.log(result)
                         const userId = result.UserId
                         const username = result.NickUserName
-                        //更新状态
                         this.setState({username})
-                        //保存到localStorage
                         localStorage.setItem('userId', userId)
                         localStorage.setItem('username', username)
                         console.log(localStorage.getItem('username')+'111111')
@@ -72,24 +72,29 @@ class MobileNewsHeader extends Component {
 
 
         const userItem = username
-            ?<div>
+            ?<div id="d1">
                 <Link to='/user_center'>
                     <Icon type="inbox"/>
                 </Link>
-                <Button type='primary' onClick={this.tuichu}>退出</Button>
+                <Button type='dashed' size="small" onClick={this.tuichu}>退出</Button>
             </div>
             : <Icon type="setting" onClick={this.setModalVisible.bind(this, true)}/>
 
         return (
             <div id="mobileheader">
                 <header>
-                    <div>
+                    <Row>
+                        <Col span={15}>
                         <Link to='/'>
                             <img src={logo} alt="logo"/>
-                            <span>ReactNews2</span>
+                            <span>React</span>
                         </Link>
-                        {userItem}
-                    </div>
+                        </Col>
+                        <Col span={9}>
+                            {userItem}
+                        </Col>
+
+                    </Row>
                 </header>
                 <Modal title="用户中心"
                        visible={modalVisible}
